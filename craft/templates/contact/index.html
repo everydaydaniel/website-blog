@@ -1,0 +1,44 @@
+{% extends '_layouts/site' %}
+{% set title = "contact" %}
+{% block content %}
+{# Refernce Video https://mijingo.com/lessons/contact-form-in-craft-cms/  #}
+{# official Plugin docs https://github.com/pixelandtonic/ContactForm #}  
+{# error form macros #}
+<h1>{{ entry.headline }}</h1>
+{% macro errorList(errors) %}
+    {% if errors %}
+      {% for error in errors %}
+          <small style="color:red;" class="help-block"> {{ error }} </small>
+      {% endfor %}
+    {% endif %}
+{% endmacro %}
+{% from _self import errorList %}
+
+<form class="" action="" method="post">
+  {# Token for security #}
+  {{ getCsrfInput() }}
+  <input type="hidden" name="action" value="contactForm/sendMessage">
+  <input type="hidden" name="redirect" value="/contact/thanks">
+  <div class="form-group">
+    <label for="fromName">From</label>
+      <input type="text" name="fromName" class="form-control" placeholder="Your name here"
+      value="{% if message is defined %}{{ message.fromName }}{% endif %}">
+  </div>
+  <div class="form-group">
+        <label for="fromEmail">Email</label>
+        <input name="fromEmail" type="email" aria-describedby="emailHelp" class="form-control"
+        placeholder="Joan@example.com" value=" {% if message is defined %}{{ message.fromEmail }}{% endif %} ">
+        {{ message is defined and message ? errorList(message.getErrors('fromEmail')) }}
+  </div>
+  <div class="form-group">
+    <label for="message">Message</label>
+    <textarea name="message"  class="form-control" rows="6">
+      {% if message is defined %}{{ message.message }}{% endif %}
+    </textarea>
+    {{ message is defined and message ? errorList(message.getErrors('message')) }}
+
+  </div>
+  <button type="submit" class="btn btn-primary">Send</button>
+  <input type="text" name="pooh" style="display:none;" value="">
+</form>
+{% endblock %}

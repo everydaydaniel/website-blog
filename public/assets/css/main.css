@@ -1,0 +1,70 @@
+/*
+This is the websites main css file
+*/
+#headerMain {
+  text-align: center;
+  background: #fff;
+  padding: 2.5em;
+  /*This is howto add a backgroujnd image but it doesnt
+  look that good*/
+  /*background-image: url("/assets/images/siteImages/hero1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;*/
+}
+#navBar {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+#content{
+  padding-left: 12%;
+  padding-right: 12%;
+  padding-top: 2em;
+}
+#personalPic{
+  max-width: 93%;
+  max-height: 93%;
+}
+#picCont{
+  text-align: center;
+}
+a {
+  transition: color 350ms ease-in-out, background-color 350ms ease-in-out;
+}
+a:hover {
+    text-decoration: none;
+    color: black;
+
+}
+.navButton, .searchBar{
+  text-align: center;
+  padding-bottom: 10px;
+
+}
+.headerTitle{
+  font-family: "Abril Fatface";
+  font-weight: bolder;
+  font-size: 1.8em;
+  color: #d11415;
+}
+@media screen and (max-width: 992px){
+  .profBody{
+    padding-top: 30px;
+  }
+}
+/* Article entry css */
+.article-header{
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.article-header-color{
+  width: 100%;
+  height: 160px;
+  padding-left: 0;
+  padding-right: 0;
+}
+.articleTitle{
+  text-align: center;
+  padding-top: 35px;
+}

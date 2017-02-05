@@ -1,0 +1,44 @@
+{#
+ # Layout template
+ # ---------------
+ #
+ # This template defines your site’s global layout. It can be
+ # “extended” by other templates to fill in the gaps.
+ #
+ # See Twig’s Template Inheritance documentation for more details:
+ # http://twig.sensiolabs.org/doc/templates.html#template-inheritance
+ #}
+
+{#
+This is the webisites base layout. It loads Bootstrap and everything that should be
+across the whole site here.
+#}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/x html" lang="en-US">
+<head>
+  {% block head %}
+	<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% if title is defined %}{{ title }} - {% endif %}{{ siteName }}</title>
+	<link rel="home" href="{{ siteUrl }}" />
+  <!-- Bootstrap -->
+  <link href="{{ siteUrl }}assets/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{ siteUrl }}assets/css/main.css">
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  {% endblock %}
+</head>
+<body {% if bodyClass is defined %}class="{{ bodyClass }}"{% endif %}>
+  {% block body %}{% endblock %}
+  {% block foot %}{% endblock %}
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{{ siteUrl }}assets/js/bootstrap.min.js"></script>
+</body>
+</html>

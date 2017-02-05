@@ -1,0 +1,23 @@
+{% extends "_layouts/site" %}
+{% set title = "about" %}
+
+{% block content %}
+
+
+
+  <h1>{{ entry.headline }}</h1>
+  <div class="container">
+  {% for block in entry.profile %}
+  {% set profpic = block.image.first() %}
+  <div id="picCont" class="col-sm-12 col-md-4">
+      <img id="personalPic" src="{{ profpic.url }}" alt="This is me">
+  </div>
+  <div class="profBody col-sm-12 col-md-8">
+      <h3 style="margin-top:0px;"> {{ block.bodytitle }}</h3>
+      <p>{{ block.body }}</p>
+  </div>
+
+</div>
+  {% endfor %}
+</div>
+{% endblock %}

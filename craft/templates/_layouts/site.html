@@ -1,0 +1,65 @@
+
+{% extends "_layouts/_layout" %}
+
+{# Define site navigation #}
+{%  set nav = {
+  about:  { title: "About" },
+  articles: { title: "Articles" },
+  contact:  { title: "Contact" }
+} %}
+
+{# Set the `bodyClass` variable to the entry's section handle if there is one,
+   or the first URI segment (this is used by the parent template) #}
+{% if bodyClass is not defined %}
+	{% set bodyClass = entry is defined ? entry.section.handle : craft.request.firstSegment %}
+{% endif %}
+
+{# Set the `title` variable to the nav item that matches the first segment #}
+{# {% if nav[bodyClass] is defined %}
+	{% set title %}{% if title is defined %}{{ title }} - {% endif %}{{ nav[bodyClass].title }}{% endset %}
+{% endif %} #}
+
+{% block body %}
+<div id="contentContainer">
+  <header id="header">
+    {# Notes: In the future could be a logo #}
+    <div id="headerMain" class="container-fluid">
+    <h1><a class="headerTitle" href="{{ siteUrl }}">The Weekly Word</a></h1>
+    </div>
+    <div id="navBar"class="container-fluid">
+    <nav>
+      <ul>
+        {% for slug, item in nav %}
+
+        <div class="col-sm-3 navButton">
+          <li style="list-style: none;">
+          <a href="{{ url(slug) }}"
+          {% if craft.request.firstSegment == slug %}
+          style="color: #d11415;"
+          {% endif %}>
+
+            <strong>{{ item.title }}</strong>
+
+          </a>
+          </li>
+        </div>
+        {% endfor %}
+        <div class="col-sm-3 searchBar">
+          search
+
+        </div>
+      </ul>
+    </nav>
+    </div>
+    {% block header %}
+    {% endblock %}
+  </header>
+
+  <main id="content" role="main">
+    {% block content %}
+      <p>If you see me, you haven’t set your <code>{% verbatim %}{% block content %}…{% endblock %}{% endverbatim %}</code> yet.</p>
+      <p>See Twig’s <a href="http://twig.sensiolabs.org/doc/templates.html#template-inheritance">Template Inheritance</a> documentation for an explanation.</p>
+    {% endblock %}
+  </main>
+</div>
+{% endblock %}

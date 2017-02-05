@@ -1,0 +1,55 @@
+
+{% extends "_layouts/site" %}
+{% set title = "Articles" %}
+{# Page configuration  #}
+{# get most recent features article  #}
+{% set featuredEntry = craft.entries({
+  section: 'Articles',
+  featuredEntry: 1,
+  order: 'postDate desc'
+}).first() %}
+
+{# setting paramaters for remaining entries #}
+{% set ArticleEntriesCriteria = craft.entries({
+      section: 'Articles',
+      id: (featuredEntry ? 'not '~featuredEntry.id),
+      order: 'postDate desc'
+})  %}
+{% block content %}
+{# ternary operator refresh if this ? then that : else other
+   | is the filter operator
+#}
+{# set up for pagintion  #}
+{% set isFirstPage = craft.request.getPageNum() == 1 %}
+{% set numArticles = isFirstPage and featuredEntry ? 9 : 10 %}
+{% paginate ArticleEntriesCriteria.limit(numArticles) as articleEntries %}
+{% if isFirstPage and featuredEntry %}
+  {# Tack featured entry into front of list #}
+  {% set articleEntries = [featuredEntry]|merge(articleEntries) %}
+{% endif %}
+{# end config #}
+
+
+{# page design
+   IMPORTANT: For CSS when doing if featuredEntry remember no spaces.
+#}
+<h1>Articles</h1>
+{% for entry in articleEntries%}
+{% set featuredEntry =  (loop.first and craft.request.pageNum == 1) %}
+<article class="{% if featuredEntry %}featured{% endif %}section">
+  {# the if statement is for future refernce.
+     If you want to add more entry types and have them
+     displayed differntly then add another if. Example
+     A link type that takes you to another article.
+   #}
+  {% if entry.type == 'article' %}
+      <h2><a href="{{ entry.url }}">{{ entry.title }}</a></h2>
+      <p>{{ entry.shortDescription }}</p>
+      <small>{{ entry.postDate | date('M d, Y') }}</small>
+
+  {% endif %}
+</article>
+{% endfor %}
+
+
+{% endblock %}
